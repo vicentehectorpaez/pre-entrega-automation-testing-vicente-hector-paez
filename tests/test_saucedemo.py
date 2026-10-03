@@ -40,7 +40,18 @@ def test_03_productos_visibles(driver):
     # el largo de la lista con len() para ver que tan largo es una lista  porque el inventory_item es similar a una lista 
     assert len(productos) > 0 , f'ERROR: No se encontraron items en la lista' # si la lista es mayor a 0 el test pasa almenos hay un elemento 
 
+def test_04_nombre_precio_producto(driver):
 
+    productos = driver.find_elements(By.CLASS_NAME, 'inventory_item') 
+    primer_producto = productos[0]
+
+    nombre_producto = primer_producto.find_element(By.CLASS_NAME, 'inventory_item_name')
+    precio_producto = primer_producto.find_element(By.CLASS_NAME, 'inventory_item_price')
+
+    assert nombre_producto.text == 'Sauce Labs Backpack', f'ERROR: El nombre del producto no se encontro o no es el mismo a, {nombre_producto}'
+    assert precio_producto.text == '$29.99', f'ERROR: El precio del producto no se encontro o no es le mismo a , {precio_producto}'
+
+    
     
 
 
