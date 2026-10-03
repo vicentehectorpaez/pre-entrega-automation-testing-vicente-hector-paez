@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By # clases common del webdriver pro me
 
 
 # configuramos un fixture para pasar servicios de instalacion correctos de los drivers correctos del navegador que vamos a utilizar 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
@@ -24,6 +24,16 @@ def test_01_login(driver):
     driver.find_element(By.ID, "login-button").click() #encuentra con metodo find_element mediante un selector en este caso el evento click del boton 
 
     assert "/inventory.html" in driver.current_url, "ERROR: No se reidirigio a la pagina /inventory.html" # lo que hace es confirmar si /invetory.html si se encuentra en esta url https://www.saucedemo.com/ el test pasa ? 
+
+# test para validar si el titulo de la pagina es el correcto 
+def test_02_verificar_inventario(driver):
+
+    page_title = driver.title
+    assert page_title == "Swag Labs" , F'ERROR: Titulo de la ventana "Swag Labs", obtenido {page_title}'
+
+
+
+
 
 
     
