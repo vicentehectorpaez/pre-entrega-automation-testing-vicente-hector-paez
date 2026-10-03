@@ -29,9 +29,19 @@ def test_01_login(driver):
 def test_02_verificar_inventario(driver):
 
     page_title = driver.title
-    assert page_title == "Swag Labs" , F'ERROR: Titulo de la ventana "Swag Labs", obtenido {page_title}'
+    captura_texto_del_span = driver.find_element(By.CLASS_NAME, 'title').text  # asingo a una variable el valor del texto que tiene la etiqueta <span> en title en saucedemo 
+   
+    assert page_title == "Swag Labs" , F'ERROR: Titulo de la ventana "Swag Labs", obtenido {page_title}' # confirma si el titulo de la pagina es igual Swag Labs
+    assert captura_texto_del_span == 'Products', f'ERROR: Titulo de la seccion esperado Products , Obtenido {captura_texto_del_span}' # verifica si el textContent de la etiqueta span es igual Products
+
+def test_03_productos_visibles(driver):
+
+    productos = driver.find_elements(By.CLASS_NAME, 'inventory_item')
+    # el largo de la lista con len() para ver que tan largo es una lista  porque el inventory_item es similar a una lista 
+    assert len(productos) > 0 , f'ERROR: No se encontraron items en la lista' # si la lista es mayor a 0 el test pasa almenos hay un elemento 
 
 
+    
 
 
 
