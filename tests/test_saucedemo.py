@@ -1,7 +1,7 @@
-import pytest  # importamos pytest
-from selenium import webdriver  # importamos el webdrivers de selenium
-from selenium.webdriver.chrome.service import Service  # importamos los servicios de selenium a traves de la clase services
-from webdriver_manager.chrome import ChromeDriverManager  # importamos el drivers correcto del navegador que vamos a utilizar 
+#import pytest  # importamos pytest
+#from selenium import webdriver  # importamos el webdrivers de selenium
+#from selenium.webdriver.chrome.service import Service  # importamos los servicios de selenium a traves de la clase services
+#from webdriver_manager.chrome import ChromeDriverManager  # importamos el drivers correcto del navegador que vamos a utilizar 
 from selenium.webdriver.common.by import By # clases common del webdriver pro medio del by
 from utils.helpers import login
 
@@ -10,14 +10,14 @@ from utils.helpers import login
 
 
 # configuramos un fixture para pasar servicios de instalacion correctos de los drivers correctos del navegador que vamos a utilizar 
-@pytest.fixture(scope="module")
-def driver():
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+#@pytest.fixture(scope="module")
+#def driver():
+#    service = Service(ChromeDriverManager().install())
+#    driver = webdriver.Chrome(service=service)
 
-    yield driver  
+#    yield driver  
 
-    driver.quit()
+#    driver.quit()
 
 # test para validar login 
 #def test_01_login(driver):
@@ -36,7 +36,7 @@ def test_01_login(driver):
 
 # test para validar si el titulo de la pagina es el correcto 
 def test_02_verificar_inventario(driver):
-
+    
     page_title = driver.title
     captura_texto_del_span = driver.find_element(By.CLASS_NAME, 'title').text  # asingo a una variable el valor del texto que tiene la etiqueta <span> en title en saucedemo 
    
@@ -64,7 +64,7 @@ def test_04_nombre_precio_producto(driver):
     precio_producto = primer_producto.find_element(By.CLASS_NAME, 'inventory_item_price') # asigno a la variable precio_producto el precio  del producto 
 
     assert nombre_producto.text == 'Sauce Labs Backpack', f'ERROR: El nombre del producto no se encontro o no es el mismo a, {nombre_producto}' # verifico que el texto de mombre_producto sea igual a Sauce Labs Backpack
-    assert precio_producto.text == '$29.99', f'ERROR: El precio del producto no se encontro o no es le mismo a , {precio_producto}' # verifico que el texto de precio_producto sea igual a $29.99
+    assert precio_producto.text == '$29.99', f'ERROR: Se esperaba $29.99 y se obtuvo, {precio_producto}' # verifico que el texto de precio_producto sea igual a $29.99
 
 
 
