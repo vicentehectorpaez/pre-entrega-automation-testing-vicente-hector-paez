@@ -53,15 +53,26 @@ def test_04_nombre_precio_producto(driver):
     assert nombre_producto.text == 'Sauce Labs Backpack', f'ERROR: El nombre del producto no se encontro o no es el mismo a, {nombre_producto}' # verifico que el texto de mombre_producto sea igual a Sauce Labs Backpack
     assert precio_producto.text == '$29.99', f'ERROR: El precio del producto no se encontro o no es le mismo a , {precio_producto}' # verifico que el texto de precio_producto sea igual a $29.99
 
+# test para validar que se muestren elementos en le intefaz del sitio 
 def test_05_validar_interfaz(driver):
 
-    menu_button = driver.find_element(By.ID, 'react-burger-menu-btn')
-    filtro = driver.find_element(By.CLASS_NAME, 'product_sort_container') 
+    menu_button = driver.find_element(By.ID, 'react-burger-menu-btn') # asigna a la variable menu_button el elemento menu hamburguesa
+    filtro = driver.find_element(By.CLASS_NAME, 'product_sort_container')  # asigna a la variable filtro el elemento de filtro 
 
-    assert menu_button.is_displayed(), f'ERROR El menu no esta visible '
-    assert filtro.is_displayed(), f'ERROR El filtro no esta visible '
+    assert menu_button.is_displayed(), f'ERROR El menu no esta visible ' # verifica si existe el elemento menu hamburguesa en el sitio 
+    assert filtro.is_displayed(), f'ERROR El filtro no esta visible '   # verifica si existe el elemento filtro en el sitio 
 
-   
+#test 6 para agregar un producto al carrito 
+def test_06_añadir_producto_al_carrito(driver):
+    first_item = driver.find_elements(By.CLASS_NAME, 'inventory_item')[0] #agregar a la variable first_item el primer elemento de inventory_item
+
+    boton_agregar = first_item.find_element(By.TAG_NAME, 'button') #agregar a la variable boton_agregar el elemento button su tagname
+    boton_agregar.click()  # hacer click y agregar un elemnto al carrito 
+
+    boton_actualizado = first_item.find_element(By.TAG_NAME, 'button')  # volver a buscar el elemento actualizado para evitar error cuando el dom y el driver de selenium maneja el elemento cuando cambia
+    assert boton_actualizado.text.capitalize() == "Remove", f'ERROR: el boton no cambio a remove ' # verifica si el texto del boton es igual a la palabra Remove
+    
+
 
 
 
