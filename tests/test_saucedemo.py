@@ -25,6 +25,8 @@ def test_01_login(driver):
 
     assert "/inventory.html" in driver.current_url, "ERROR: No se reidirigio a la pagina /inventory.html" # lo que hace es confirmar si /invetory.html si se encuentra en esta url https://www.saucedemo.com/ el test pasa ? 
 
+
+
 # test para validar si el titulo de la pagina es el correcto 
 def test_02_verificar_inventario(driver):
 
@@ -34,12 +36,16 @@ def test_02_verificar_inventario(driver):
     assert page_title == "Swag Labs" , F'ERROR: Titulo de la ventana "Swag Labs", obtenido {page_title}' # confirma si el titulo de la pagina es igual Swag Labs
     assert captura_texto_del_span == 'Products', f'ERROR: Titulo de la seccion esperado Products , Obtenido {captura_texto_del_span}' # verifica si el textContent de la etiqueta span es igual Products
 
+
+
 # test para validar si hay productos visibles 
 def test_03_productos_visibles(driver):
 
     productos = driver.find_elements(By.CLASS_NAME, 'inventory_item')
     # el largo de la lista con len() para ver que tan largo es una lista  porque el inventory_item es similar a una lista 
     assert len(productos) > 0 , f'ERROR: No se encontraron items en la lista' # si la lista es mayor a 0 el test pasa almenos hay un elemento 
+
+
 
 # test para validar el nombre y el precio del primer prodcucto del sitio 
 def test_04_nombre_precio_producto(driver):
@@ -53,6 +59,8 @@ def test_04_nombre_precio_producto(driver):
     assert nombre_producto.text == 'Sauce Labs Backpack', f'ERROR: El nombre del producto no se encontro o no es el mismo a, {nombre_producto}' # verifico que el texto de mombre_producto sea igual a Sauce Labs Backpack
     assert precio_producto.text == '$29.99', f'ERROR: El precio del producto no se encontro o no es le mismo a , {precio_producto}' # verifico que el texto de precio_producto sea igual a $29.99
 
+
+
 # test para validar que se muestren elementos en le intefaz del sitio 
 def test_05_validar_interfaz(driver):
 
@@ -61,6 +69,8 @@ def test_05_validar_interfaz(driver):
 
     assert menu_button.is_displayed(), f'ERROR El menu no esta visible ' # verifica si existe el elemento menu hamburguesa en el sitio 
     assert filtro.is_displayed(), f'ERROR El filtro no esta visible '   # verifica si existe el elemento filtro en el sitio 
+
+
 
 #test 6 para agregar un producto al carrito 
 def test_06_añadir_producto_al_carrito(driver):
@@ -72,12 +82,28 @@ def test_06_añadir_producto_al_carrito(driver):
     boton_actualizado = first_item.find_element(By.TAG_NAME, 'button')  # volver a buscar el elemento actualizado para evitar error cuando el dom y el driver de selenium maneja el elemento cuando cambia
     assert boton_actualizado.text.capitalize() == "Remove", f'ERROR: el boton no cambio a remove ' # verifica si el texto del boton es igual a la palabra Remove
 
+
+
+#verificar si se agrego producto en el carrito 
 def test_07_verificar_contador_carrito(driver):
-    contador_carrito = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
+    contador_carrito = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text #se asigna a la variable contador_carrito el texto con el valor del producto cargado en el carrito 
 
-    assert contador_carrito == "1", f'ERROR: se esperaba 1 , obtuvo {contador_carrito}'
+    assert contador_carrito == "1", f'ERROR: se esperaba 1 , obtuvo {contador_carrito}' #verifica si hay un elemento en el carrito de compras 
 
 
+
+# test que verifica que se navega dentro de la pagina del carrito de compra /cart.html
+def test_08_navegar_carrito(driver):
+    driver.find_element(By.CLASS_NAME, 'shopping_cart_link').click() # hace clik en el carrito para que se abra la pagina cart.html
+
+    assert "/cart.html" in driver.current_url, "ERROR: No se reidirigio a la pagina /card.html" #verifica si esta en la pagina del carrito cart.html
+
+
+# test luego de agregar producto navegar a la pagina del carrito y ver si se agrego el producto correctamente 
+def test_09_comprobar_producto_en_carrito(driver):
+    producto_nombre_carrito = driver.find_element(By.CLASS_NAME, 'inventory_item_name').text # asigna a la variable producto_nombre_carrito el texto Sauce Labs Backpack
+
+    assert producto_nombre_carrito == "Sauce Labs Backpack", f'ERROR No se encontro el producto agregado Sauce Labs Backpack' # si el valor de la variable es igual a Sauce Labs Backpack el test paso 
 
 
 
