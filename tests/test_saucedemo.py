@@ -68,10 +68,15 @@ def test_06_añadir_producto_al_carrito(driver):
 
     boton_agregar = first_item.find_element(By.TAG_NAME, 'button') #agregar a la variable boton_agregar el elemento button su tagname
     boton_agregar.click()  # hacer click y agregar un elemnto al carrito 
-
+   
     boton_actualizado = first_item.find_element(By.TAG_NAME, 'button')  # volver a buscar el elemento actualizado para evitar error cuando el dom y el driver de selenium maneja el elemento cuando cambia
     assert boton_actualizado.text.capitalize() == "Remove", f'ERROR: el boton no cambio a remove ' # verifica si el texto del boton es igual a la palabra Remove
-    
+
+def test_07_verificar_contador_carrito(driver):
+    contador_carrito = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
+
+    assert contador_carrito == "1", f'ERROR: se esperaba 1 , obtuvo {contador_carrito}'
+
 
 
 
