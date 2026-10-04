@@ -1,31 +1,7 @@
-#import pytest  # importamos pytest
-#from selenium import webdriver  # importamos el webdrivers de selenium
-#from selenium.webdriver.chrome.service import Service  # importamos los servicios de selenium a traves de la clase services
-#from webdriver_manager.chrome import ChromeDriverManager  # importamos el drivers correcto del navegador que vamos a utilizar 
 from selenium.webdriver.common.by import By # clases common del webdriver pro medio del by
 from utils.helpers import login
 
 
-
-
-
-# configuramos un fixture para pasar servicios de instalacion correctos de los drivers correctos del navegador que vamos a utilizar 
-#@pytest.fixture(scope="module")
-#def driver():
-#    service = Service(ChromeDriverManager().install())
-#    driver = webdriver.Chrome(service=service)
-
-#    yield driver  
-
-#    driver.quit()
-
-# test para validar login 
-#def test_01_login(driver):
-#    driver.get("https://www.saucedemo.com/") #con get accede a la pagina y abre el navegador con la url 
-
-#   driver.find_element(By.ID, "user-name").send_keys("standard_user") #encuentra con metodo find_element mediante un selector en este caso ID el username
-#   driver.find_element(By.ID, "password").send_keys("secret_sauce") #encuentra con metodo find_element mediante un selector en este caso ID el password
-#   driver.find_element(By.ID, "login-button").click() #encuentra con metodo find_element mediante un selector en este caso el evento click del boton 
 
 #funcion que llama al helper login y luego verifica si esta dentro de la pagina /inventory.html
 def test_01_login(driver):  
@@ -36,7 +12,7 @@ def test_01_login(driver):
 
 # test para validar si el titulo de la pagina es el correcto 
 def test_02_verificar_inventario(driver):
-    
+   
     page_title = driver.title
     captura_texto_del_span = driver.find_element(By.CLASS_NAME, 'title').text  # asingo a una variable el valor del texto que tiene la etiqueta <span> en title en saucedemo 
    
