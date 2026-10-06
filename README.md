@@ -72,7 +72,7 @@ py -m pytest -v
 Generar reporte HTML:
  
 ```bash
-py -m pytest --html=reporte.html --self-contained-html
+py -m pytest --html=reports/reporte_preentrega.html --self-contained-html
 ```
  
 ---
